@@ -1,0 +1,233 @@
+body {
+  margin: 0;
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+  background-color: #f4f6fb;
+  color: #23272f;
+  line-height: 1.6;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.dashboard-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  background: #f4f6fb;
+}
+
+/* ================= HEADER ================= */
+.dashboard-header {
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 36px;
+  background: #fff;
+  border-bottom: 1.5px solid #e0e7ef;
+  box-shadow: 0 2px 12px rgba(30,41,59,0.06);
+  z-index: 100;
+  box-sizing: border-box;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #2563eb;
+}
+
+.logo-icon {
+  font-size: 28px;
+}
+
+/* Navigation */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-btn,
+.settings-btn {
+  background: #2563eb;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 9px 18px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.15);
+}
+
+.nav-btn:hover,
+.settings-btn:hover {
+  background: #1746a2;
+  transform: translateY(-2px);
+}
+
+/* Dropdown */
+.settings {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  right: 0;
+  top: 44px;
+  background: #fff;
+  border: 1.5px solid #e0e7ef;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(30,41,59,0.12);
+  min-width: 190px;
+  z-index: 20;
+  padding: 0.5rem 0;
+  animation: fadeIn 0.2s ease-in-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.dropdown-item {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 0.75rem 1.2rem;
+  font-size: 1rem;
+  color: #374151;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.dropdown-item:hover {
+  background: #f4f6fb;
+  color: #2563eb;
+}
+.dropdown-item.logout {
+  color: #e11d48;
+}
+.dropdown-item.logout:hover {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+/* ================= MAIN CONTENT ================= */
+.dashboard-main {
+  flex: 1;
+  width: 100vw;
+  box-sizing: border-box;
+  padding: 110px 2rem 70px 2rem; /* top for header, bottom for footer */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.dashboard-main::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.about-section {
+  background: #fff;
+  padding: 2.5rem 2.8rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 28px rgba(30,41,59,0.08);
+  max-width: 850px;
+  width: 100%;
+  text-align: left;
+}
+
+.about-section h2 {
+  margin: 0 0 16px;
+  font-size: 2rem;
+  color: #2563eb;
+  font-weight: 700;
+  text-align: center;
+}
+
+.about-section p {
+  color: #374151;
+  font-size: 1.08rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Features List */
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+
+.features-list li {
+  font-size: 1.05rem;
+  color: #2d3748;
+  margin-bottom: 12px;
+  padding-left: 30px;
+  position: relative;
+}
+
+.features-list li::before {
+  content: "✅";
+  position: absolute;
+  left: 0;
+  font-size: 1.1rem;
+  color: #22c55e;
+}
+
+/* ================= FOOTER ================= */
+.dashboard-footer {
+  width: 100vw;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background: #2563eb;
+  color: #fff;
+  text-align: center;
+  padding: 18px 0 12px;
+  font-size: 0.95rem;
+  letter-spacing: 0.4px;
+  z-index: 101;
+  box-sizing: border-box;
+}
+
+.footer-links {
+  margin-top: 8px;
+}
+
+.footer-links a {
+  color: #e0e7ff;
+  margin: 0 10px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+.footer-links a:hover {
+  color: #fff;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+  .dashboard-main {
+    padding: 110px 0.5rem 70px 0.5rem;
+  }
+  .about-section {
+    padding: 1.5rem 1rem;
+  }
+  .dashboard-header,
+  .dashboard-footer {
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+  }
+}

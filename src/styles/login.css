@@ -1,0 +1,242 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+}
+
+/* Background */
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #111;
+}
+
+/* Full-screen background with image */
+.login-background {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('../assets/legal.png'); /* adjust path if needed */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+/* Optional dark overlay for contrast */
+.login-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* adjust opacity as needed */
+  z-index: 0;
+}
+
+/* Login container */
+.login-container {
+  position: relative; /* above overlay */
+  z-index: 1;
+  width: 400px;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.95); /* semi-transparent for image visibility */
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+  text-align: center;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Title */
+.login-container h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #111;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* Role switcher */
+.role-switcher {
+  display: flex;
+  justify-content: space-between;
+  background: #f3f4f6;
+  padding: 4px;
+  border-radius: 12px;
+  gap: 0.5rem;
+  border: 1px solid #e5e7eb;
+  width: 100%;
+}
+
+.role-switcher button {
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #2563eb;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.role-switcher button.active-user {
+  background: #2563eb;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+}
+
+.role-switcher button.active-lawyer {
+  background: #facc15;
+  color: #111;
+  box-shadow: 0 2px 8px rgba(250, 204, 21, 0.15);
+}
+
+.role-switcher button:hover:not(.active-user):not(.active-lawyer) {
+  background: #e0e7ef;
+  color: #1746a2;
+}
+
+/* Inputs */
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+form input {
+  width: 100%;
+  padding: 13px 12px;
+  border: 1.2px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: #111;
+  background: #f9fafb;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+form input::placeholder {
+  color: #6b7280;
+}
+
+form input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px #2563eb33;
+  background: #fff;
+}
+
+/* Password container */
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-container input {
+  padding-right: 44px; /* space for eye */
+}
+
+/* Password toggle */
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-toggle svg {
+  width: 22px;
+  height: 22px;
+  color: #444;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.password-toggle:hover svg {
+  color: #2563eb;
+  transform: scale(1.15);
+}
+
+/* Submit button */
+.login-btn {
+  width: 100%;
+  padding: 13px 0;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.07rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.18);
+  transition: all 0.2s ease;
+}
+
+.login-btn:hover,
+.login-btn:focus {
+  background: #1746a2;
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.22);
+  transform: translateY(-1px) scale(1.02);
+  outline: none;
+}
+
+/* Signup link */
+.signup-link {
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+.signup-btn {
+  color: #2563eb;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 2px;
+  text-decoration: underline;
+  transition: color 0.18s;
+}
+
+.signup-btn:hover,
+.signup-btn:focus {
+  color: #1746a2;
+  text-decoration: none;
+  outline: none;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .login-container {
+    width: 95vw;
+    padding: 1.8rem;
+    border-radius: 0.9rem;
+  }
+}
