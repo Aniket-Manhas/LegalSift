@@ -1,16 +1,18 @@
+/* ChatGPT Fullscreen UI */
 .chatgpt-ui {
   display: flex;
   flex-direction: column;
-  height: 80vh;
-  max-width: 600px;
-  margin: 2.5rem auto;
+  height: 100vh;          /* Full viewport height */
+  width: 100vw;           /* Full viewport width */
+  margin: 0;              /* Remove margin */
   background: #f7f7fa;
-  border-radius: 18px;
-  box-shadow: 0 4px 32px rgba(60,72,88,0.09);
-  border: 1.5px solid #e0e7ef;
+  border-radius: 0;       /* No border radius for fullscreen */
+  box-shadow: none;       /* No shadow for fullscreen */
+  border: none;
   overflow: hidden;
 }
 
+/* Header */
 .chat-header {
   display: flex;
   align-items: center;
@@ -27,6 +29,7 @@
   margin: 0;
 }
 
+/* Upload button */
 .upload-btn {
   display: flex;
   align-items: center;
@@ -46,6 +49,7 @@
   background: #1746a2;
 }
 
+/* Chat window */
 .chat-window {
   flex: 1;
   padding: 1.2rem 1.5rem;
@@ -61,8 +65,9 @@
   display: none; /* Chrome, Safari, Opera */
 }
 
+/* Messages */
 .chat-message {
-  max-width: 80%;
+  max-width: 75%;
   padding: 0.85rem 1.1rem;
   border-radius: 12px;
   font-size: 1.04rem;
@@ -95,6 +100,7 @@
   padding: 0.5rem 1rem;
 }
 
+/* Input bar */
 .chat-input-bar {
   display: flex;
   align-items: center;
@@ -138,17 +144,17 @@
   background: #1746a2;
 }
 
+/* Responsive */
 @media (max-width: 700px) {
   .chatgpt-ui {
-    max-width: 99vw;
-    margin: 0.7rem;
-    height: 85vh;
+    width: 100vw;
+    height: 100vh;
   }
   .chat-header,
   .chat-input-bar {
-    padding: 0.7rem 0.7rem;
+    padding: 0.7rem;
   }
   .chat-window {
-    padding: 0.7rem 0.7rem;
+    padding: 0.7rem;
   }
 }

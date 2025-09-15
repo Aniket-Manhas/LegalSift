@@ -1,0 +1,165 @@
+/* Reset & Base */
+body {
+  margin: 0;
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+  background: #f4f6f9; /* soft background */
+  color: #1f2937;
+  height: 100vh;
+  line-height: 1.6;
+}
+
+/* Container */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Layout: Main content only */
+.dashboard-layout {
+  display: flex;
+  flex: 1;
+  margin-top: 70px; /* space for fixed header */
+  margin-bottom: 60px; /* space for footer */
+  padding: 2rem;
+  background: #f4f6f9;
+  overflow-y: auto;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Cards - Base */
+.card {
+  border-radius: 12px;
+  padding: 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect for all cards */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Large Card - AI Document Analysis (Neutral) */
+.large-card {
+  height: 160px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  background: #ffffff; /* neutral white */
+  color: #1f2937; /* dark text */
+  border: 1px solid #e5e7eb; /* soft border */
+}
+
+.large-card:hover {
+  background: #f3f4f6; /* light hover effect */
+  color: #111827;
+}
+
+/* Row of two cards */
+.card-row {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.card-row .card {
+  flex: 1;
+  height: 130px;
+}
+
+/* Colorful buttons */
+.card-1 {
+  background: linear-gradient(135deg, #f97316, #facc15);
+  color: #111;
+  box-shadow: 0 6px 18px rgba(249, 115, 22, 0.3);
+}
+
+.card-1:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(249, 115, 22, 0.5);
+}
+
+.card-2 {
+  background: linear-gradient(135deg, #14b8a6, #06b6d4);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(6, 182, 212, 0.3);
+}
+
+.card-2:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(6, 182, 212, 0.5);
+}
+
+/* Footer */
+.dashboard-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: #2563eb;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Transactions Table */
+.transaction-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+}
+
+.transaction-table th,
+.transaction-table td {
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.transaction-table th {
+  background-color: #f3f4f6;
+  font-weight: 600;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.transaction-table tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.transaction-table tr:hover {
+  background-color: #e0f2fe;
+}
+
+/* Responsive Improvements */
+@media (max-width: 768px) {
+  .card-row {
+    flex-direction: column;
+  }
+  .large-card {
+    font-size: 1.1rem;
+  }
+}

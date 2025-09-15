@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/contactlawyer.css";
 
-// Sample data, replace with API data as needed
+// Sample data
 const lawyers = [
   {
     id: 1,
@@ -56,7 +56,9 @@ export default function ContactLawyer() {
   return (
     <div className="contactlawyer-container">
       <h2 className="contactlawyer-title">Find & Contact a Lawyer</h2>
+
       <div className="lawyer-list-section">
+        {/* Lawyer List */}
         <div className="lawyer-list">
           {lawyers.map((lawyer) => (
             <div
@@ -84,6 +86,7 @@ export default function ContactLawyer() {
           ))}
         </div>
 
+        {/* Lawyer Details */}
         <div className="lawyer-details-section">
           {selectedLawyer ? (
             <div className="lawyer-details-card">
@@ -100,11 +103,8 @@ export default function ContactLawyer() {
               <p><b>Association:</b> {selectedLawyer.association}</p>
               <p>
                 <b>Email:</b>{" "}
-                <a href={`mailto:${selectedLawyer.email}`}>
-                  {selectedLawyer.email}
-                </a>
+                <a href={`mailto:${selectedLawyer.email}`}>{selectedLawyer.email}</a>
               </p>
-              {/* Phone number removed */}
               <p><b>Address:</b> {selectedLawyer.address}</p>
               <p><b>About:</b> {selectedLawyer.about}</p>
             </div>
