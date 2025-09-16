@@ -1,0 +1,163 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  padding: 10px 20px;
+  color: white;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.logo-icon {
+  margin-right: 6px;
+  font-size: 20px;
+}
+
+.nav {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-item {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.nav-item:hover {
+  color: #1abc9c;
+}
+
+.nav-item.active {
+  font-weight: bold;
+  border-bottom: 2px solid #1abc9c;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icon {
+  cursor: pointer;
+  font-size: 18px;
+  transition: color 0.2s ease;
+}
+
+.icon:hover {
+  color: #1abc9c;
+}
+
+.profile-img {
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+/* Search box */
+.search-wrapper {
+  position: relative;
+}
+
+.search-input {
+  top: 30px;
+  right: 0;
+  padding: 5px 8px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  position: absolute;
+  z-index: 2;
+}
+
+/* Notifications dropdown */
+.notification-wrapper {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background: white;
+  color: black;
+  padding: 10px;
+  border-radius: 5px;
+  min-width: 200px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+.profile-wrapper {
+  position: relative;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: white;
+  color: black;
+  padding: 12px;
+  border-radius: 8px;
+  min-width: 220px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-icon {
+  font-size: 28px;
+  color: #1abc9c;
+}
+
+.profile-name {
+  font-weight: bold;
+  margin: 0;
+}
+
+.profile-email {
+  font-size: 13px;
+  margin: 2px 0;
+}
+
+.profile-role {
+  font-size: 12px;
+  color: gray;
+}
+
+.dropdown-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 8px 0;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.dropdown-btn:hover {
+  color: #1abc9c;
+}
+
+.dropdown-btn.logout {
+  color: red;
+}
+.profile-dropdown-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}

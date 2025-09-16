@@ -1,0 +1,149 @@
+.payments-revenue {
+  padding: 20px;
+  background: #0f0f0f;
+  color: white;
+  min-height: 100vh;
+  position: absolute;
+  width: calc(100vw - 220px);
+  top: 63px;
+  right: 0;
+}
+
+/* Heading */
+.payments-revenue h2 {
+  margin-bottom: 20px;
+  color: #1abc9c;
+}
+
+/* Stats cards */
+.stats-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+.card {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 12px;
+}
+.card p {
+  font-size: 14px;
+  color: #ccc;
+}
+.card h3 {
+  font-size: 28px;
+  margin: 5px 0;
+  color: #1abc9c;
+}
+.card h3.negative {
+  color: #e74c3c;
+}
+.card .info {
+  display: block;
+  font-size: 12px;
+  color: #aaa;
+  margin-bottom: 6px;
+}
+.card .trend {
+  font-size: 12px;
+  font-weight: bold;
+}
+.trend.positive {
+  color: #2ecc71;
+}
+.trend.negative {
+  color: #e74c3c;
+}
+
+/* Transactions */
+.transactions {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 12px;
+}
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.export-buttons {
+  display: flex;
+  gap: 10px;
+}
+.export-btn {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.export-btn:hover {
+  background: #16a085;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+thead {
+  color: #1abc9c;
+  font-size: 14px;
+}
+th,
+td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #333;
+  text-align: left;
+}
+tbody tr:hover {
+  background: #222;
+}
+.link {
+  color: #1abc9c;
+  cursor: pointer;
+}
+.status {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.status.success {
+  background: #2ecc71;
+  color: white;
+}
+.status.pending {
+  background: #f39c12;
+  color: black;
+}
+.status.failed {
+  background: #e74c3c;
+  color: white;
+}
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  background: #1f1f1f;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.pagination button.active {
+  background: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

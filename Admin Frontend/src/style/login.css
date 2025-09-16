@@ -1,0 +1,136 @@
+/* Container */
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #000;
+}
+
+/* Login Box */
+.loginBox {
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.6);
+  width: 360px;
+  padding: 2rem 2.5rem;
+  background-color: #1e1f25;
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Logo */
+.logo {
+  width: 50px;
+  margin-bottom: 1rem;
+}
+
+/* Title */
+.loginTitle {
+  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Form */
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.loginForm label {
+  margin: 0.5rem 0 0.3rem;
+  font-size: 0.9rem;
+  color: #cfd1d5;
+}
+
+/* Input fields (shared) */
+.loginForm input {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background-color: #2b2d36;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.loginForm input:focus {
+  outline: 2px solid #00b7c7;
+}
+
+/* Password wrapper */
+.passwordWrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.passwordWrapper input {
+  padding-right: 2.5rem; /* space for eye icon */
+}
+
+/* Toggle password button */
+.togglePassword {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 10px;
+  height: 40%;
+  margin-bottom: 1rem;
+  background: none;
+  cursor: pointer;
+  border: none;
+  font-size: 1.2rem;
+  color: #cfd1d5;
+}
+
+.togglePassword:hover {
+  color: #757575;
+}
+
+/* Submit button */
+.loginFormSubmitButton {
+  padding: 0.8rem;
+  transition: background 0.2s ease;
+  background-color: #00b7c7;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.loginFormSubmitButton:hover {
+  background-color: #0097a5;
+}
+
+/* Forgot Password link */
+.forgotLink {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #00b7c7;
+  text-decoration: none;
+}
+
+.forgotLink:hover {
+  text-decoration: underline;
+}
+/* Override Chrome autofill yellow/white background */
+.loginForm input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #323743 inset !important;
+  -webkit-text-fill-color: #fff !important;
+  caret-color: #fff;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* For password field specifically */
+.passwordWrapper input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #2b2d36 inset !important;
+  -webkit-text-fill-color: #fff !important;
+  caret-color: #fff;
+}

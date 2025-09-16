@@ -1,0 +1,166 @@
+.support-panel {
+  padding: 20px;
+  background: #0f0f0f;
+  color: white;
+  min-height: 100vh;
+  position: absolute;
+  width: calc(100vw - 220px);
+  top: 63px;
+  right: 0;
+}
+
+.support-panel h2 {
+  color: #1abc9c;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  color: #aaa;
+  margin-bottom: 20px;
+}
+
+/* Stats Cards */
+.stats-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+.card {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 12px;
+}
+.card h3 {
+  font-size: 26px;
+  margin-bottom: 5px;
+  color: #1abc9c;
+}
+.card p {
+  font-size: 14px;
+  color: #ccc;
+}
+.trend {
+  font-size: 12px;
+}
+.trend.positive {
+  color: #2ecc71;
+}
+.trend.negative {
+  color: #e74c3c;
+}
+.trend.neutral {
+  color: #f39c12;
+}
+
+/* Tickets */
+.tickets {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 12px;
+}
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.actions {
+  display: flex;
+  gap: 10px;
+}
+.new-ticket,
+.export {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+.new-ticket {
+  background: #1abc9c;
+  color: white;
+}
+.export {
+  background: #333;
+  color: white;
+}
+.export:hover {
+  background: #16a085;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th,
+td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #333;
+  text-align: left;
+}
+thead th {
+  color: #1abc9c;
+  font-size: 14px;
+}
+tbody tr:hover {
+  background: #222;
+}
+
+/* Labels */
+.priority {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.priority.high {
+  background: #e74c3c;
+  color: white;
+}
+.priority.medium {
+  background: #f39c12;
+  color: black;
+}
+.priority.low {
+  background: #2ecc71;
+  color: white;
+}
+.status {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.status.open {
+  background: #3498db;
+  color: white;
+}
+.status.in-progress {
+  background: #9b59b6;
+  color: white;
+}
+.status.resolved {
+  background: #2ecc71;
+  color: white;
+}
+.resolve-btn {
+  padding: 6px 12px;
+  background: #1abc9c;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: white;
+}
+.resolve-btn:hover {
+  background: #16a085;
+}
+.resolved-label {
+  color: #2ecc71;
+  font-weight: bold;
+}
+.footer {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #aaa;
+}
