@@ -9,40 +9,43 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard-container">
-      {/* Header */}
       <Header />
-
-      {/* Main Layout */}
-      <div className="dashboard-layout">
-        {/* Main Content */}
-        <main className="main-content">
+      
+      <main className="dashboard-content">
+        <div className="dashboard-grid">
           {/* AI Document Analysis Button */}
           <button
-            className="card large-card clickable-card"
+            className="dashboard-card primary-card"
             onClick={() => navigate("/services")}
+            aria-label="Access AI Document Analysis"
           >
-            AI Document Analysis
+            <h2>AI Document Analysis</h2>
+            <p>Analyze legal documents with AI assistance</p>
           </button>
 
-          {/* Row of Buttons */}
-          <div className="card-row">
+          {/* Secondary Services */}
+          <div className="secondary-cards">
             <button
-              className="card clickable-card"
+              className="dashboard-card secondary-card"
               onClick={() => navigate("/contactlawyer")}
+              aria-label="Connect with a lawyer"
             >
-              Lawyer Connect
+              <h3>Lawyer Connect</h3>
+              <p>Get professional legal advice</p>
             </button>
+            
             <button
-              className="card clickable-card"
+              className="dashboard-card secondary-card"
               onClick={() => navigate("/transactions")}
+              aria-label="View transaction history"
             >
-              Transaction History
+              <h3>Transaction History</h3>
+              <p>Track your past activities</p>
             </button>
           </div>
-        </main>
-      </div>
-
-      {/* Footer */}
+        </div>
+      </main>
+      
       <Footer />
     </div>
   );
