@@ -23,12 +23,12 @@
     "express-validator": "^7.0.1",
     "helmet": "^7.0.0",
     "express-rate-limit": "^6.10.0",
-    "crypto": "^1.0.1",
     "openai": "^4.0.0",
     "axios": "^1.5.0",
     "pdf-parse": "^1.1.1",
     "mammoth": "^1.6.0",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "supertest": "^6.3.3"
   },
   "devDependencies": {
     "nodemon": "^3.0.1",

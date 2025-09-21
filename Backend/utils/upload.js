@@ -1,6 +1,5 @@
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
 // Configure Cloudinary
 cloudinary.config({
@@ -10,14 +9,7 @@ cloudinary.config({
 });
 
 // Configure multer storage
-const storage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: 'legalsift',
-    allowed_formats: ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx', 'txt'],
-    transformation: [{ width: 1000, height: 1000, crop: 'limit' }]
-  }
-});
+const storage = multer.memoryStorage();
 
 // File filter
 const fileFilter = (req, file, cb) => {
