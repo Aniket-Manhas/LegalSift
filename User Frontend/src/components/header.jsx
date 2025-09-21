@@ -46,8 +46,8 @@ export default function Header() {
           tabIndex={0}
           onKeyPress={(e) => e.key === "Enter" && handleNavigate("/dashboard")}
         >
-          <img src={GenAILogo} alt="GENAI Logo" className="logo" />
-          <span className="brand-name">Legalsift</span>
+          {/* <img src={GenAILogo} alt="GENAI Logo" className="logo" />
+          <span className="brand-name">Legalsift</span> */}
         </div>
 
         {/* Right Buttons */}
