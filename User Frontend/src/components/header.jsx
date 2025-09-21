@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/header.css";
-// import GenAILogo from "../assets/GenAI logo.png";
+import GenAILogo from "../assets/GenAI_logo.png";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -46,8 +46,8 @@ export default function Header() {
           tabIndex={0}
           onKeyPress={(e) => e.key === "Enter" && handleNavigate("/dashboard")}
         >
-          {/* <img src={GenAILogo} alt="GENAI Logo" className="logo" />
-          <span className="brand-name">Legalsift</span> */}
+          <img src={GenAILogo} alt="GENAI Logo" className="logo" />
+          <span className="brand-name">Legalsift</span>
         </div>
 
         {/* Right Buttons */}
