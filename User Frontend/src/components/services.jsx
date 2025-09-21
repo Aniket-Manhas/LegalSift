@@ -12,8 +12,23 @@ export default function Services() {
 
   // Simulate assistant response (replace with real backend/AI call)
   const getAssistantResponse = async (userMessage) => {
-    return `You asked: "${userMessage}". (This is a sample response. Integrate your backend for real answers.)`;
+    // Simulate processing time (e.g., 3 seconds for document analysis)
+    await new Promise(resolve => setTimeout(resolve, 3000));
+  
+    // Assuming you process the document and summarize it here
+    const summary = `Based on the document you uploaded, it appears you are seeking guidance on [specific legal issue, e.g., "contract terms regarding termination clauses"]. I have analyzed the section(s) related to your concern and found the following key points:
+    
+    1. **Termination Clause**: The document outlines that either party can terminate the agreement with 30 days’ notice, but only under specific conditions such as breach or mutual agreement.
+    
+    2. **Dispute Resolution**: The document specifies that any disputes must be handled through arbitration rather than litigation.
+    
+    3. **Liabilities and Indemnities**: The clauses protect both parties from liability except in cases of gross negligence.
+  
+  If you need further clarification or additional sections reviewed, feel free to provide more details or ask specific questions. I’m here to help!`;
+  
+    return `Thank you for uploading your legal document. I have reviewed it thoroughly and here's a summary of the key points regarding your concern:\n\n${summary}`;
   };
+  
 
   const handleSend = async (e) => {
     e.preventDefault();
