@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext"; // ✅ import AuthContext
 import "../styles/header.css";
 import GenAILogo from "../assets/GenAI_logo.png";
 
@@ -7,38 +8,48 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
+  const { logout } = useAuth(); // ✅ get logout function from context
   const [language, setLanguage] = useState("en");
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setOpen(false);
       }
     };
-    if (open) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    if (open) document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [open]);
 
-  // Navigate & close dropdown
   const handleNavigate = (path) => {
     navigate(path);
     setOpen(false);
   };
 
-  // Toggle language
-  const toggleLanguage = () => {
+  const toggleLanguage = () =>
     setLanguage((prev) => (prev === "en" ? "hi" : "en"));
+
+  // ✅ Fixed logout
+  const handleLogout = async () => {
+    try {
+      await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`, {
+        method: "POST",
+        credentials: "include", // important to clear cookie
+      });
+
+      // Clear frontend state
+      logout();
+
+      // Redirect to login
+      navigate("/login");
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
   };
 
   return (
     <header className="header">
       <div className="header-container">
-        {/* Logo */}
         <div
           className="logo-wrapper"
           onClick={() => handleNavigate("/dashboard")}
@@ -50,9 +61,7 @@ export default function Header() {
           <span className="brand-name">Legalsift</span>
         </div>
 
-        {/* Right Buttons */}
         <div className="header-buttons">
-          {/* Multi-Language Button */}
           <button
             className="lang-btn"
             onClick={toggleLanguage}
@@ -61,7 +70,6 @@ export default function Header() {
             🌐 {language.toUpperCase()}
           </button>
 
-          {/* Hamburger / Settings Dropdown */}
           <div className="settings" ref={dropdownRef}>
             <button
               className="settings-btn"
@@ -72,6 +80,7 @@ export default function Header() {
             >
               ☰
             </button>
+
             {open && (
               <div id="dropdown-menu" className="dropdown" role="menu">
                 <button
@@ -81,10 +90,7 @@ export default function Header() {
                   Settings
                 </button>
                 <hr className="dropdown-divider" />
-                <button
-                  className="dropdown-item logout"
-                  onClick={() => handleNavigate("/login")}
-                >
+                <button className="dropdown-item logout" onClick={handleLogout}>
                   Logout
                 </button>
               </div>

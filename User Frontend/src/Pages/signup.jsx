@@ -1,10 +1,14 @@
 import React, { useState } from "react";
-import { Lock, UserPlus, Eye, EyeOff } from "lucide-react"; // ✅ icons
-import { useNavigate } from "react-router-dom"; // ✅ for navigation
+import { useNavigate } from "react-router-dom";
 import "../styles/signup.css";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import axios from "axios";
 
 export default function Signup() {
   const navigate = useNavigate();
+  const [role, setRole] = useState("user"); // optional if you have role toggle
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     age: "",
@@ -15,8 +19,6 @@ export default function Signup() {
   });
   const [error, setError] = useState("");
   const [passwordStrength, setPasswordStrength] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,150 +31,145 @@ export default function Signup() {
   const checkPasswordStrength = (password) => {
     if (!password) return setPasswordStrength("");
     if (password.length < 6) return setPasswordStrength("Weak ❌");
-    if (password.match(/[A-Z]/) && password.match(/[0-9]/) && password.length >= 8) {
+    if (
+      password.match(/[A-Z]/) &&
+      password.match(/[0-9]/) &&
+      password.length >= 8
+    ) {
       return setPasswordStrength("Strong ✅");
     }
     setPasswordStrength("Medium ⚡");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match!");
       return;
     }
-    setError("");
-    alert("Signup successful!");
-    navigate("/login");
 
-    setFormData({
-      name: "",
-      age: "",
-      contact: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    });
-    setPasswordStrength("");
+    try {
+      const endpoint =
+        role === "user" ? "/auth/user/signup" : "/auth/lawyer/signup";
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}${endpoint}`,
+        formData
+      );
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("role", role);
+      navigate(role === "user" ? "/dashboard" : "/lawyerdashboard");
+    } catch (err) {
+      setError(err.response?.data?.message || "Signup failed");
+    }
   };
 
   return (
     <div className="signup-outer">
       <div className="signup-container">
-        <form className="signup-form" onSubmit={handleSubmit} autoComplete="off">
-          <h2><UserPlus size={22} /> User Signup</h2>
+        <form
+          className="signup-form"
+          onSubmit={handleSubmit}
+          autoComplete="off"
+        >
+          <h2>User Signup</h2>
 
           <div className="form-grid">
             <div className="signup-field">
-              <label htmlFor="name">Name</label>
+              <label>Name</label>
               <input
-                id="name"
                 type="text"
                 name="name"
                 placeholder="Enter your full name"
                 value={formData.name}
                 onChange={handleChange}
                 required
-                autoComplete="name"
               />
             </div>
 
             <div className="signup-field">
-              <label htmlFor="age">Age</label>
+              <label>Age</label>
               <input
-                id="age"
                 type="number"
                 name="age"
                 placeholder="Enter your age"
                 value={formData.age}
                 onChange={handleChange}
                 required
-                min="1"
-                max="120"
               />
             </div>
           </div>
 
           <div className="form-grid">
             <div className="signup-field">
-              <label htmlFor="contact">Contact</label>
+              <label>Contact</label>
               <input
-                id="contact"
                 type="tel"
                 name="contact"
                 placeholder="Enter your contact number"
                 value={formData.contact}
                 onChange={handleChange}
                 required
-                pattern="[0-9]{10,15}"
-                autoComplete="tel"
               />
             </div>
 
             <div className="signup-field">
-              <label htmlFor="email">Email</label>
+              <label>Email</label>
               <input
-                id="email"
                 type="email"
                 name="email"
                 placeholder="Enter your email"
                 value={formData.email}
                 onChange={handleChange}
                 required
-                autoComplete="email"
               />
             </div>
           </div>
 
-          {/* Password with eye toggle */}
           <div className="signup-field password-wrapper">
-            <label htmlFor="password">Password</label>
+            <label>Password</label>
             <div className="password-input">
               <input
-                id="password"
                 type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder="Enter password"
                 value={formData.password}
                 onChange={handleChange}
                 required
-                autoComplete="new-password"
               />
               <button
                 type="button"
                 className="eye-btn"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                {showPassword ? <FiEyeOff /> : <FiEye />}
               </button>
             </div>
             {passwordStrength && (
-              <small className={`password-strength ${passwordStrength.toLowerCase()}`}>
+              <small
+                className={`password-strength ${passwordStrength.toLowerCase()}`}
+              >
                 {passwordStrength}
               </small>
             )}
           </div>
 
-          {/* Confirm Password with eye toggle */}
           <div className="signup-field password-wrapper">
-            <label htmlFor="confirmPassword">Confirm Password</label>
+            <label>Confirm Password</label>
             <div className="password-input">
               <input
-                id="confirmPassword"
                 type={showConfirmPassword ? "text" : "password"}
                 name="confirmPassword"
                 placeholder="Confirm password"
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 required
-                autoComplete="new-password"
               />
               <button
                 type="button"
                 className="eye-btn"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               >
-                {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                {showConfirmPassword ? <FiEyeOff /> : <FiEye />}
               </button>
             </div>
           </div>
@@ -180,13 +177,19 @@ export default function Signup() {
           {error && <div className="signup-error">{error}</div>}
 
           <button className="signup-btn-main" type="submit">
-            <Lock size={18} /> Sign Up
+            Sign Up
           </button>
         </form>
 
         <div className="login-link">
           Already have an account?{" "}
-          <a href="/login" className="login-btn-link">Login</a>
+          <button
+            type="button"
+            className="signup-btn"
+            onClick={() => navigate("/login")}
+          >
+            Login
+          </button>
         </div>
       </div>
     </div>

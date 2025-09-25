@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FaBell, FaSignOutAlt, FaSearch, FaUser } from "react-icons/fa";
+import { FaBell, FaSignOutAlt, FaSearch } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext"; // ✅ Import useAuth
 import "../style/header.css";
 
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { logout } = useAuth(); // ✅ Get logout from context
 
   const [showSearch, setShowSearch] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
@@ -49,9 +51,22 @@ const Header = () => {
     }
   };
 
-  const handleLogout = () => {
-    console.log("Log out Successfully");
-    navigate("/login");
+  const handleLogout = async () => {
+    try {
+      // Call backend to clear the cookie
+      await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`, {
+        method: "POST",
+        credentials: "include", // ✅ send cookie
+      });
+
+      // Clear user in frontend context
+      logout(); // ✅ call logout from AuthContext
+
+      console.log("Logged out successfully");
+      navigate("/login"); // redirect to login
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
   };
 
   return (
