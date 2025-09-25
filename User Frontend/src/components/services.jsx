@@ -1,6 +1,11 @@
 import React, { useRef, useState } from "react";
 import { FiUpload, FiSend } from "react-icons/fi";
 import "../styles/services.css";
+import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf";
+import mammoth from "mammoth";
+
+// Use CDN worker to fix Vite import issue
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
 
 export default function Services() {
   const [messages, setMessages] = useState([
@@ -11,12 +16,64 @@ export default function Services() {
     },
   ]);
   const [input, setInput] = useState("");
+  const [file, setFile] = useState(null);
+  const [fileText, setFileText] = useState("");
   const [fileName, setFileName] = useState("");
   const [loading, setLoading] = useState(false);
   const fileInputRef = useRef(null);
 
-  // Simulate assistant response with legal analysis
-  const getAssistantResponse = async (userMessage) => {
+  const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+
+  // Extract text from PDF
+  const extractPdfText = async (file) => {
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+    let text = "";
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const content = await page.getTextContent();
+      text += content.items.map((item) => item.str).join(" ") + "\n";
+    }
+    return text;
+  };
+
+  // Extract text from DOCX
+  const extractDocxText = async (file) => {
+    const arrayBuffer = await file.arrayBuffer();
+    const result = await mammoth.extractRawText({ arrayBuffer });
+    return result.value;
+  };
+
+  const handleFileChange = async (e) => {
+    const selectedFile = e.target.files[0];
+    if (!selectedFile) return;
+
+    setFile(selectedFile);
+    setFileName(selectedFile.name);
+    setMessages((prev) => [
+      ...prev,
+      { role: "system", content: `📄 Uploaded: ${selectedFile.name}` },
+    ]);
+
+    let text = "";
+    if (selectedFile.type === "application/pdf") {
+      text = await extractPdfText(selectedFile);
+    } else if (
+      selectedFile.type ===
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
+      selectedFile.type === "application/msword"
+    ) {
+      text = await extractDocxText(selectedFile);
+    } else {
+      text = await selectedFile.text();
+    }
+
+    setFileText(text);
+  };
+
+  const getAssistantResponse = async (userMessage, uploadedText) => {
+    if (!GEMINI_API_KEY) return "API key missing";
+
     setLoading(true);
 
     setMessages((prev) => [
@@ -24,146 +81,66 @@ export default function Services() {
       { role: "assistant", content: "Analyzing your document..." },
     ]);
 
-    // Fake delay for analysis
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    try {
+      const prompt = uploadedText
+        ? `Document Text:\n${uploadedText}\n\nUser Question: ${userMessage}`
+        : userMessage;
 
-    const legalReferences = [
-      "According to Section 73 of the Indian Contract Act, 1872...",
-      "As per IPC Section 415, fraud is defined as ...",
-      "Referring to Section 7 of the Arbitration and Conciliation Act, 1996...",
-    ];
+      const contents = [
+        {
+          role: "user",
+          parts: [{ text: prompt }],
+        },
+      ];
 
-    const riskScore = Math.floor(Math.random() * 10) + 1;
+      const response = await fetch(
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-goog-api-key": GEMINI_API_KEY,
+          },
+          body: JSON.stringify({ contents }),
+        }
+      );
 
-    const summary = (
-      <div>
-        <p>
-          <strong>Summary of Key Points:</strong>
-        </p>
-        <ul>
-          <li>
-            <strong>Fraud Definition:</strong> As per IPC Section 415, fraud
-            involves deceiving a person to cause wrongful gain or loss.
-          </li>
-          <li>
-            <strong>Practical Meaning:</strong> If someone lies or misrepresents
-            facts with the intention of gaining benefits, it falls under fraud.
-          </li>
-          <li>
-            <strong>Implication:</strong> Such fraud can lead to both civil
-            liability (compensation) and criminal liability (punishment).
-          </li>
-        </ul>
+      const data = await response.json();
+      setLoading(false);
 
-        {/* Risk Score Badge */}
-        <div
-          className={`risk-score ${
-            riskScore <= 3
-              ? "risk-low"
-              : riskScore <= 6
-              ? "risk-medium"
-              : "risk-high"
-          }`}
-        >
-          Risk Score: {riskScore}/10
+      const aiText =
+        data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+        "No response from Gemini API.";
+
+      return (
+        <div>
+          <p>
+            <strong>Gemini AI Analysis:</strong>
+          </p>
+          <p>{aiText}</p>
         </div>
-
-        {/* Legal Reference with Official Links */}
-        <div className="legal-reference">
-          <p>
-            <strong>Reference:</strong> As per IPC Section 415, fraud is defined
-            as an act of deceiving any person, by misrepresentation or
-            concealment of fact, with intent to cause wrongful gain to one party
-            or wrongful loss to another.
-          </p>
-          <p>
-            📄 Official Legal Text / More Info:
-            <a
-              href="https://indiankanoon.org/doc/1306824/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Indian Kanoon — IPC Section 415
-            </a>{" "}
-            |
-            <a
-              href="https://www.indiacode.nic.in/repealedfileopen?rfilename=A1860-45.pdf"
-              target="_blank"
-              rel="noreferrer"
-            >
-              IndiaCode PDF
-            </a>{" "}
-            |
-            <a
-              href="https://devgan.in/ipc/section/415/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Devgan.in Explanation
-            </a>
-          </p>
-        </div>
-
-        {/* Explanation in Simple Words */}
-        <div className="legal-reference">
-          <p>
-            <strong>In Simple Terms:</strong> If someone tricks another person
-            by hiding or lying about facts to take advantage or cause harm, it
-            counts as fraud.
-          </p>
-          <p>
-            <strong>Example:</strong> Selling fake property papers knowing they
-            are forged, and causing loss to the buyer.
-          </p>
-        </div>
-
-        {/* Next Step Suggestions */}
-        <div className="next-steps">
-          <p>
-            <strong>Next, you can ask:</strong>
-          </p>
-          <ul>
-            <li>
-              What are the punishments under IPC Section 420 (Cheating) related
-              to fraud?
-            </li>
-            <li>Give me a real-world case study of fraud under Section 415.</li>
-            <li>Does this change the Risk Score?</li>
-            <li>Which other IPC sections connect with Section 415?</li>
-          </ul>
-        </div>
-      </div>
-    );
-
-    setLoading(false);
-    return summary;
+      );
+    } catch (err) {
+      setLoading(false);
+      console.error(err);
+      return "Failed to get response from Gemini API.";
+    }
   };
 
   const handleSend = async (e) => {
     e.preventDefault();
-    if (!input.trim()) return;
+    if (!input.trim() && !fileText) return;
 
-    const userMsg = { role: "user", content: input };
+    const userMsg = { role: "user", content: input || `Uploaded: ${fileName}` };
     setMessages((prev) => [...prev, userMsg]);
     setInput("");
 
-    const assistantReply = await getAssistantResponse(input);
+    const assistantReply = await getAssistantResponse(input, fileText);
 
     setMessages((prev) => [
       ...prev,
       { role: "assistant", content: assistantReply },
     ]);
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setFileName(file.name);
-      setMessages((prev) => [
-        ...prev,
-        { role: "system", content: `📄 Uploaded: ${file.name}` },
-      ]);
-    }
   };
 
   return (
@@ -199,27 +176,12 @@ export default function Services() {
           </div>
         ))}
 
-        {/* Perplexity-like loading state */}
         {loading && (
           <div className="perplexity">
             <p>
               <strong>Analyzing your document</strong>
               <span className="dots"></span>
             </p>
-            <div className="legal-sources">
-              <p>
-                📖 Referencing{" "}
-                <a
-                  href="https://indiacode.nic.in/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Indian Contract Act, 1872
-                </a>
-              </p>
-              <p>⚖️ Checking case law under Arbitration Act, 1996</p>
-              <p>🔎 Cross-verifying IPC definitions of fraud</p>
-            </div>
           </div>
         )}
       </div>

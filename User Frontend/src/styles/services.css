@@ -2,12 +2,12 @@
 .chatgpt-ui {
   display: flex;
   flex-direction: column;
-  height: 100vh;          /* Full viewport height */
-  width: 100vw;           /* Full viewport width */
-  margin: 0;              /* Remove margin */
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+  margin: 0; /* Remove margin */
   background: #f7f7fa;
-  border-radius: 0;       /* No border radius for fullscreen */
-  box-shadow: none;       /* No shadow for fullscreen */
+  border-radius: 0; /* No border radius for fullscreen */
+  box-shadow: none; /* No shadow for fullscreen */
   border: none;
   overflow: hidden;
 }
@@ -73,12 +73,12 @@
   font-size: 1.04rem;
   line-height: 1.5;
   word-break: break-word;
-  box-shadow: 0 2px 8px rgba(60,72,88,0.04);
+  box-shadow: 0 2px 8px rgba(60, 72, 88, 0.04);
 }
 
 .chat-message.user {
   align-self: flex-end;
-  background: #2563eb;
+  background: #00a24d;
   color: #fff;
   border-bottom-right-radius: 4px;
 }
@@ -159,36 +159,24 @@
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* Typing dots animation */
 @keyframes typingDots {
-  0%, 20% { content: "."; }
-  40% { content: ".."; }
-  60% { content: "..."; }
-  80% { content: "...."; }
-  100% { content: "....."; }
+  0%,
+  20% {
+    content: ".";
+  }
+  40% {
+    content: "..";
+  }
+  60% {
+    content: "...";
+  }
+  80% {
+    content: "....";
+  }
+  100% {
+    content: ".....";
+  }
 }
 
 /* Perplexity-like analysis state */
@@ -221,7 +209,7 @@
   color: #555;
   font-family: "Roboto", sans-serif;
   text-align: left;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .legal-sources p {
@@ -314,7 +302,7 @@
 
 /* User messages */
 .chat-message.user {
-  background: #d7fbe8;
+  background: #00a24d;
   padding: 12px 14px;
   border-radius: 10px;
   margin: 10px 0;
